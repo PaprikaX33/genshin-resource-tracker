@@ -16,25 +16,10 @@
              width : 70px;
          }
          label {
-             border : 0;
-             max-width: 100px;
+             white-space : nowrap;
          }
          input[type="number"]{
              width : 100px;
-         }
-         .raw-block {
-             display: flex;
-             align-items: center;
-             justify-content: flex-end;
-             flex-wrap: nowrap;
-             flex-direction: row;
-             width: 100%;
-         }
-         .raw-block label{
-             white-space: nowrap;
-             flex : 1 0 100%;
-             margin : auto;
-             padding: 0 2px;
          }
         </style>
     </head>
@@ -69,12 +54,8 @@
                         <td class="row-head">Action</td>
                         <td><input type="button" class="act-button" id="act-compute" value="Compute" /></td>
                         <td><input type="button" class="act-button" id="act-clear" value="Clear" /></td>
-                        <td colspan="2">
-                            <div class="raw-block">
-                            <div><label for="difference">Raw Difference:</label></div>
-                            <div><input type="number" id="difference" min="0" value="0" disabled="true" /></div>
-                            </div>
-                        </td>
+                        <td><label for="difference">Raw Difference:</label></td>
+                        <td><input type="number" id="difference" min="0" value="0" disabled="true" /></td>
                     </tr>
                 </tbody>
             </table>
