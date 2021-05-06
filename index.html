@@ -18,14 +18,14 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>Required</td>
+                    <td id="required-tag">Required</td>
                     <td><input type="number" id="required-gold"   min="0" value="0" /></td>
                     <td><input type="number" id="required-purple" min="0" value="0" /></td>
                     <td><input type="number" id="required-blue"   min="0" value="0" /></td>
                     <td><input type="number" id="required-white"  min="0" value="0" /></td>
                 </tr>
                 <tr>
-                    <td id="have-tag">Have</td>
+                    <td>Have</td>
                     <td><input type="number" id="have-gold"   min="0" value="0" /></td>
                     <td><input type="number" id="have-purple" min="0" value="0" /></td>
                     <td><input type="number" id="have-blue"   min="0" value="0" /></td>
@@ -35,8 +35,8 @@
                     <td>Action</td>
                     <td><input type="button" id="act-compute" value="Compute" /></td>
                     <td><input type="button" id="act-clear" value="Clear" /></td>
-                    <td colspan="2"> <label for="result-val">required value:</label>
-                        <input type="number" id="result-val" min="0" value="0" disabled="true" /></td>
+                    <td colspan="2"> <label for="difference">raw difference:</label>
+                        <input type="number" id="difference" min="0" value="0" disabled="true" /></td>
                 </tr>
             </tbody>
         </table>
@@ -55,23 +55,23 @@
                  blue   : document.getElementById("have-blue"),
                  white  : document.getElementById("have-white"),
              },
-             
-
-             result  : document.getElementById("result-val"),
-
+             diff : document.getElementById("difference"),
              button : {
-                 compute : document.getElementById("result-compute"),
-                 clear   : document.getElementById("result-clear"),
+                 compute : document.getElementById("act-compute"),
+                 clear   : document.getElementById("act-clear"),
              },
              tag : {
-                 have   : document.getElementById("have-tag"),
-                 result : document.getElementById("result-tag"),
+                 required : document.getElementById("required-tag"),
              },
              precomp : {
                  gold   : Math.pow(3, 3),
                  purple : Math.pow(3, 2),
                  blue   : Math.pow(3, 1),
                  white  : Math.pow(3, 0),
+             },
+             string : {
+                 required : "Required",
+                 surplus  : "Surplus",
              },
          };
          function clearHave(){
@@ -85,7 +85,9 @@
                  objReff.required[required].disabled = false;
              }
              clearHave();
-             objReff.result.value = 0;
+             objReff.tag.required.innerText = objReff.string.required;
+             objReff.diff.value = 0;
+             objReff.button.compute.disabled = false;
              resultManip = disableRequire;
          }
          let resultManip = null;
@@ -107,26 +109,33 @@
              return white + blue + purple + gold;
          }
          function compute(){
+             function fillResult(val){
+                 let normDiff = val;
+                 objReff.required.gold.value = Math.floor(normDiff / objReff.precomp.gold);
+                 normDiff %= objReff.precomp.gold;
+                 objReff.required.purple.value = Math.floor(normDiff / objReff.precomp.purple);
+                 normDiff %= objReff.precomp.purple;
+                 objReff.required.blue.value = Math.floor(normDiff / objReff.precomp.blue);
+                 normDiff %= objReff.precomp.blue;
+                 objReff.required.white.value = Math.floor(normDiff / objReff.precomp.white);
+                 objReff.diff.value = val;
+                 clearHave();
+                 resultManip();
+             }
              let reqVal = calculateVal(objReff.required);
              let havVal = calculateVal(objReff.have);
              let diff = reqVal - havVal;
-             let normDiff = Math.abs(diff);
-
-             objReff.required.gold.value = Math.floor(normDiff / objReff.precomp.gold);
-             normDiff %= objReff.precomp.gold;
-             objReff.required.purple.value = Math.floor(normDiff / objReff.precomp.purple);
-             normDiff %= objReff.precomp.purple;
-             objReff.required.blue.value = Math.floor(normDiff / objReff.precomp.blue);
-             normDiff %= objReff.precomp.blue;
-             objReff.required.white.value = Math.floor(normDiff / objReff.precomp.white);
-
-             objReff.result.value.value = diff;
-             clearHave();
-             resultManip();
+             if(diff > 0){
+                 fillResult(diff);
+             }
+             else {
+                 fillResult(diff * (-1));
+                 objReff.button.compute.disabled = true;
+                 objReff.tag.required.innerText = objReff.string.surplus;
+             }
          }
-         
-         document.getElementById("act-clear").addEventListener('click', clear);
-         document.getElementById("act-compute").addEventListener('click', compute);
+         objReff.button.clear.addEventListener('click', clear);
+         objReff.button.compute.addEventListener('click', compute);
         </script>
     </body>
     <!--
