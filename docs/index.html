@@ -49,7 +49,6 @@
         </table>
         <script>
          "use strict";
-
          let objReff = {
              required : {
                  gold   : document.getElementById("required-gold"),
@@ -79,6 +78,12 @@
                  have   : document.getElementById("have-tag"),
                  result : document.getElementById("result-tag"),
              },
+             precomp : {
+                 gold   : Math.pow(3, 3),
+                 purple : Math.pow(3, 2),
+                 blue   : Math.pow(3, 1),
+                 white  : Math.pow(3, 0),
+             },
          };
          function clear() {
              for(let required in objReff.required){
@@ -91,7 +96,33 @@
                  objReff.result[result].value = 0;
              }
          }
+         
+         function calculateVal(obj){
+             let white   = obj.white.value  * objReff.precomp.white;
+             let blue    = obj.blue.value   * objReff.precomp.blue;
+             let purple  = obj.purple.value * objReff.precomp.purple;
+             let gold    = obj.gold.value   * objReff.precomp.gold;
+             return white + blue + purple + gold;
+         }
+         function compute(){
+             let reqVal = calculateVal(objReff.required);
+             let havVal = calculateVal(objReff.have);
+             let diff = reqVal - havVal;
+             let normDiff = Math.abs(diff);
+
+             objReff.result.gold.value = Math.floor(normDiff / objReff.precomp.gold);
+             normDiff %= objReff.precomp.gold;
+             objReff.result.purple.value = Math.floor(normDiff / objReff.precomp.purple);
+             normDiff %= objReff.precomp.purple;
+             objReff.result.blue.value = Math.floor(normDiff / objReff.precomp.blue);
+             normDiff %= objReff.precomp.blue;
+             objReff.result.white.value = Math.floor(normDiff / objReff.precomp.white);
+             normDiff %= objReff.precomp.white;
+             objReff.result.value.value = diff;
+         }
+         
          document.getElementById("act-clear").addEventListener('click', clear);
+         document.getElementById("act-compute").addEventListener('click', compute);
         </script>
     </body>
 </html>
