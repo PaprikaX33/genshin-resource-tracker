@@ -25,7 +25,7 @@
                     <td><input type="number" id="required-white"  min="0" value="0" /></td>
                 </tr>
                 <tr>
-                    <td>Have</td>
+                    <td id="have-tag">Have</td>
                     <td><input type="number" id="have-gold"   min="0" value="0" /></td>
                     <td><input type="number" id="have-purple" min="0" value="0" /></td>
                     <td><input type="number" id="have-blue"   min="0" value="0" /></td>
@@ -49,25 +49,49 @@
         </table>
         <script>
          "use strict";
+
+         let objReff = {
+             required : {
+                 gold   : document.getElementById("required-gold"),
+                 purple : document.getElementById("required-purple"),
+                 blue   : document.getElementById("required-blue"),
+                 white  : document.getElementById("required-white"),
+             },
+             have : {
+                 gold   : document.getElementById("have-gold"),
+                 purple : document.getElementById("have-purple"),
+                 blue   : document.getElementById("have-blue"),
+                 white  : document.getElementById("have-white"),
+             },
+             
+             result : {
+                 gold   : document.getElementById("result-gold"),
+                 purple : document.getElementById("result-purple"),
+                 blue   : document.getElementById("result-blue"),
+                 white  : document.getElementById("result-white"),
+                 value  : document.getElementById("result-val"),
+             },
+             button : {
+                 compute : document.getElementById("result-compute"),
+                 clear   : document.getElementById("result-clear"),
+             },
+             tag : {
+                 have   : document.getElementById("have-tag"),
+                 result : document.getElementById("result-tag"),
+             },
+         };
          function clear() {
-             document.getElementById("required-gold").value   = 0;
-             document.getElementById("required-purple").value = 0;
-             document.getElementById("required-blue").value   = 0;
-             document.getElementById("required-white").value  = 0;
-
-             document.getElementById("have-gold").value   = 0;
-             document.getElementById("have-purple").value = 0;
-             document.getElementById("have-blue").value   = 0;
-             document.getElementById("have-white").value  = 0;
-
-             document.getElementById("result-gold").value   = 0;
-             document.getElementById("result-purple").value = 0;
-             document.getElementById("result-blue").value   = 0;
-             document.getElementById("result-white").value  = 0;
-             document.getElementById("result-val").value    = 0;
+             for(let required in objReff.required){
+                 objReff.required[required].value = 0;
+             }
+             for(let have in objReff.have){
+                 objReff.have[have].value = 0;
+             }
+             for(let result in objReff.result){
+                 objReff.result[result].value = 0;
+             }
          }
          document.getElementById("act-clear").addEventListener('click', clear);
-         //document.getElementById("act-compute").addEventListener('click', compute);
         </script>
     </body>
 </html>
