@@ -19,26 +19,55 @@
             <tbody>
                 <tr>
                     <td>Required</td>
-                    <td><input type="number" id="required-gold"   min="0" /></td>
-                    <td><input type="number" id="required-silver" min="0" /></td>
-                    <td><input type="number" id="required-blue"   min="0" /></td>
-                    <td><input type="number" id="required-white"  min="0" /></td>
+                    <td><input type="number" id="required-gold"   min="0" value="0" /></td>
+                    <td><input type="number" id="required-purple" min="0" value="0" /></td>
+                    <td><input type="number" id="required-blue"   min="0" value="0" /></td>
+                    <td><input type="number" id="required-white"  min="0" value="0" /></td>
                 </tr>
                 <tr>
                     <td>Have</td>
-                    <td><input type="number" id="have-gold"   min="0" /></td>
-                    <td><input type="number" id="have-silver" min="0" /></td>
-                    <td><input type="number" id="have-blue"   min="0" /></td>
-                    <td><input type="number" id="have-white"  min="0" /></td>
+                    <td><input type="number" id="have-gold"   min="0" value="0" /></td>
+                    <td><input type="number" id="have-purple" min="0" value="0" /></td>
+                    <td><input type="number" id="have-blue"   min="0" value="0" /></td>
+                    <td><input type="number" id="have-white"  min="0" value="0" /></td>
                 </tr>
                 <tr>
                     <td id="result-tag">Need</td>
-                    <td><input type="number" id="result-gold"   min="0" disabled="true" /></td>
-                    <td><input type="number" id="result-silver" min="0" disabled="true" /></td>
-                    <td><input type="number" id="result-blue"   min="0" disabled="true" /></td>
-                    <td><input type="number" id="result-white"  min="0" disabled="true" /></td>
+                    <td><input type="number" id="result-gold"   min="0" value="0" disabled="true" /></td>
+                    <td><input type="number" id="result-purple" min="0" value="0" disabled="true" /></td>
+                    <td><input type="number" id="result-blue"   min="0" value="0" disabled="true" /></td>
+                    <td><input type="number" id="result-white"  min="0" value="0" disabled="true" /></td>
+                </tr>
+                <tr>
+                    <td>Action</td>
+                    <td><input type="button" id="act-compute" value="Compute" /></td>
+                    <td><input type="button" id="act-clear" value="Clear" /></td>
+                    <td colspan="2"> <label for="result-val">required value:</label>
+                        <input type="number" id="result-val" min="0" value="0" disabled="true" /></td>
                 </tr>
             </tbody>
         </table>
+        <script>
+         "use strict";
+         function clear() {
+             document.getElementById("required-gold").value   = 0;
+             document.getElementById("required-purple").value = 0;
+             document.getElementById("required-blue").value   = 0;
+             document.getElementById("required-white").value  = 0;
+
+             document.getElementById("have-gold").value   = 0;
+             document.getElementById("have-purple").value = 0;
+             document.getElementById("have-blue").value   = 0;
+             document.getElementById("have-white").value  = 0;
+
+             document.getElementById("result-gold").value   = 0;
+             document.getElementById("result-purple").value = 0;
+             document.getElementById("result-blue").value   = 0;
+             document.getElementById("result-white").value  = 0;
+             document.getElementById("result-val").value    = 0;
+         }
+         document.getElementById("act-clear").addEventListener('click', clear);
+         //document.getElementById("act-compute").addEventListener('click', compute);
+        </script>
     </body>
 </html>
