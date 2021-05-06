@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Genshin Resource Tracker
+        </title>
+    </head>
+    <body>
+        <!-- TODO: make different datalist for talent, as it's not increment of 3 -->
+        <datalist id="quick-value">
+            <option value="3" />
+            <option value="6" />
+            <option value="9" />
+            <option value="12" />
+        </datalist>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Gold</th>
+                    <th>Purple</th>
+                    <th>Blue</th>
+                    <th>White</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Required</td>
+                    <td><input list="quick-value" type="number" id="required-gold"   min="0" /></td>
+                    <td><input list="quick-value" type="number" id="required-silver" min="0" /></td>
+                    <td><input list="quick-value" type="number" id="required-blue"   min="0" /></td>
+                    <td><input list="quick-value" type="number" id="required-white"  min="0" /></td>
+                </tr>
+                <tr>
+                    <td>Have</td>
+                    <td><input list="quick-value" type="number" id="have-gold"   min="0" /></td>
+                    <td><input list="quick-value" type="number" id="have-silver" min="0" /></td>
+                    <td><input list="quick-value" type="number" id="have-blue"   min="0" /></td>
+                    <td><input list="quick-value" type="number" id="have-white"  min="0" /></td>
+                </tr>
+                <tr>
+                    <td id="result-tag">Need</td>
+                    <td><input list="quick-value" type="number" id="result-gold"   min="0" disabled="true" /></td>
+                    <td><input list="quick-value" type="number" id="result-silver" min="0" disabled="true" /></td>
+                    <td><input list="quick-value" type="number" id="result-blue"   min="0" disabled="true" /></td>
+                    <td><input list="quick-value" type="number" id="result-white"  min="0" disabled="true" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
