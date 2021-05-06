@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Genshin Resource Tracker
+        </title>
+    </head>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Gold</th>
+                    <th>Purple</th>
+                    <th>Blue</th>
+                    <th>White</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Required</td>
+                    <td><input type="number" id="required-gold"   min="0" value="0" /></td>
+                    <td><input type="number" id="required-purple" min="0" value="0" /></td>
+                    <td><input type="number" id="required-blue"   min="0" value="0" /></td>
+                    <td><input type="number" id="required-white"  min="0" value="0" /></td>
+                </tr>
+                <tr>
+                    <td id="have-tag">Have</td>
+                    <td><input type="number" id="have-gold"   min="0" value="0" /></td>
+                    <td><input type="number" id="have-purple" min="0" value="0" /></td>
+                    <td><input type="number" id="have-blue"   min="0" value="0" /></td>
+                    <td><input type="number" id="have-white"  min="0" value="0" /></td>
+                </tr>
+                <tr>
+                    <td id="result-tag">Need</td>
+                    <td><input type="number" id="result-gold"   min="0" value="0" disabled="true" /></td>
+                    <td><input type="number" id="result-purple" min="0" value="0" disabled="true" /></td>
+                    <td><input type="number" id="result-blue"   min="0" value="0" disabled="true" /></td>
+                    <td><input type="number" id="result-white"  min="0" value="0" disabled="true" /></td>
+                </tr>
+                <tr>
+                    <td>Action</td>
+                    <td><input type="button" id="act-compute" value="Compute" /></td>
+                    <td><input type="button" id="act-clear" value="Clear" /></td>
+                    <td colspan="2"> <label for="result-val">required value:</label>
+                        <input type="number" id="result-val" min="0" value="0" disabled="true" /></td>
+                </tr>
+            </tbody>
+        </table>
+        <script>
+         "use strict";
+         let objReff = {
+             required : {
+                 gold   : document.getElementById("required-gold"),
+                 purple : document.getElementById("required-purple"),
+                 blue   : document.getElementById("required-blue"),
+                 white  : document.getElementById("required-white"),
+             },
+             have : {
+                 gold   : document.getElementById("have-gold"),
+                 purple : document.getElementById("have-purple"),
+                 blue   : document.getElementById("have-blue"),
+                 white  : document.getElementById("have-white"),
+             },
+             
+             result : {
+                 gold   : document.getElementById("result-gold"),
+                 purple : document.getElementById("result-purple"),
+                 blue   : document.getElementById("result-blue"),
+                 white  : document.getElementById("result-white"),
+                 value  : document.getElementById("result-val"),
+             },
+             button : {
+                 compute : document.getElementById("result-compute"),
+                 clear   : document.getElementById("result-clear"),
+             },
+             tag : {
+                 have   : document.getElementById("have-tag"),
+                 result : document.getElementById("result-tag"),
+             },
+             precomp : {
+                 gold   : Math.pow(3, 3),
+                 purple : Math.pow(3, 2),
+                 blue   : Math.pow(3, 1),
+                 white  : Math.pow(3, 0),
+             },
+         };
+         function clear() {
+             for(let required in objReff.required){
+                 objReff.required[required].value = 0;
+             }
+             for(let have in objReff.have){
+                 objReff.have[have].value = 0;
+             }
+             for(let result in objReff.result){
+                 objReff.result[result].value = 0;
+             }
+         }
+         
+         function calculateVal(obj){
+             let white   = obj.white.value  * objReff.precomp.white;
+             let blue    = obj.blue.value   * objReff.precomp.blue;
+             let purple  = obj.purple.value * objReff.precomp.purple;
+             let gold    = obj.gold.value   * objReff.precomp.gold;
+             return white + blue + purple + gold;
+         }
+         function compute(){
+             let reqVal = calculateVal(objReff.required);
+             let havVal = calculateVal(objReff.have);
+             let diff = reqVal - havVal;
+             let normDiff = Math.abs(diff);
+
+             objReff.result.gold.value = Math.floor(normDiff / objReff.precomp.gold);
+             normDiff %= objReff.precomp.gold;
+             objReff.result.purple.value = Math.floor(normDiff / objReff.precomp.purple);
+             normDiff %= objReff.precomp.purple;
+             objReff.result.blue.value = Math.floor(normDiff / objReff.precomp.blue);
+             normDiff %= objReff.precomp.blue;
+             objReff.result.white.value = Math.floor(normDiff / objReff.precomp.white);
+             normDiff %= objReff.precomp.white;
+             objReff.result.value.value = diff;
+         }
+         
+         document.getElementById("act-clear").addEventListener('click', clear);
+         document.getElementById("act-compute").addEventListener('click', compute);
+        </script>
+    </body>
+</html>
