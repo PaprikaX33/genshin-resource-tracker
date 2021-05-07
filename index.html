@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8">
         <title>
             Genshin Resource Tracker
         </title>
@@ -17,8 +18,10 @@
          .row-head {
              width : 70px;
          }
-         label {
+         .fixed-label {
              white-space : nowrap;
+             overflow : hidden;
+             text-overflow : clip;
          }
          input[type="number"]{
              width : 100px;
@@ -55,7 +58,7 @@
                     <td class="row-head">Action</td>
                     <td><input type="button" class="act-button" id="act-compute" value="Compute" /></td>
                     <td><input type="button" class="act-button" id="act-clear" value="Clear" /></td>
-                    <td><label for="difference">Raw Difference:</label></td>
+                    <td><label class="fixed-label" for="difference">Value</label></td>
                     <td><input type="number" id="difference" min="0" value="0" disabled="true" /></td>
                 </tr>
             </tbody>
